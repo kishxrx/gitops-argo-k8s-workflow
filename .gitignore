@@ -1,9 +1,21 @@
 # Python venv
 venv/
-
-# Bytecode
 __pycache__/
 *.pyc
 
-# Tools
-bfg.jar
+# OS files
+.DS_Store
+
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.tar
+*.zip
+*.gz
+
+# Minikube or Kubernetes binaries
+minikube*
+kubectl*
