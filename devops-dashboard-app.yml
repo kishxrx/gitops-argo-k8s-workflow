@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devops-dashboard
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kishxrx/gitops-argo-k8s-workflow.git
+    targetRevision: main
+    path: devops-dashboard
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: devops-dashboard
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
