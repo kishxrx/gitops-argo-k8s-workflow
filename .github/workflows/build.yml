@@ -1,0 +1,67 @@
+name: Build, Push Docker Image & Update ArgoCD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      # 2. Set up Python cache for faster builds
+      - name: Set up Python cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('devops-dashboard/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 3. Log in to DockerHub
+      - name: DockerHub Login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # 4. Build Docker image
+      - name: Build Docker image
+        run: |
+          IMAGE_NAME=kishxrx/gitops-argo-k8s-workflow
+          COMMIT_SHA=${GITHUB_SHA::8}
+          docker build -t $IMAGE_NAME:latest -t $IMAGE_NAME:$COMMIT_SHA ./devops-dashboard
+
+      # 5. Push Docker image
+      - name: Push Docker image
+        run: |
+          IMAGE_NAME=kishxrx/gitops-argo-k8s-workflow
+          COMMIT_SHA=${GITHUB_SHA::8}
+          docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$COMMIT_SHA
+
+      # 6. Update deployment.yaml with new SHA and ensure imagePullPolicy
+      - name: Update deployment.yaml
+        run: |
+          IMAGE_NAME=kishxrx/gitops-argo-k8s-workflow
+          COMMIT_SHA=${GITHUB_SHA::8}
+          # Replace image with the new SHA tag
+          sed -i "s|image: $IMAGE_NAME:.*|image: $IMAGE_NAME:$COMMIT_SHA|g" devops-dashboard/deployment.yaml
+
+      # 7. Commit & push deployment update using PAT (skip CI to prevent loop)
+      - name: Commit & push deployment update
+        env:
+          GH_PERSONAL_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add devops-dashboard/deployment.yaml
+          git commit -m "Update deployment image to $IMAGE_NAME:$COMMIT_SHA [skip ci]" || echo "No changes to commit"
+          git push https://kishxrx:$GH_PERSONAL_TOKEN@github.com/kishxrx/gitops-argo-k8s-workflow.git HEAD:main
