@@ -13,8 +13,7 @@ jobs:
       # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        # No need to pass token here, default is fine for checkout
 
       # 2. Set up Python cache for faster builds
       - name: Set up Python cache
@@ -58,9 +57,13 @@ jobs:
           # Ensure imagePullPolicy is Always
           sed -i '/image:/a\        imagePullPolicy: Always' devops-dashboard/deployment.yaml
 
-          # Git commit & push
+      # 7. Commit & push changes using PAT
+      - name: Commit & push deployment update
+        env:
+          GH_PERSONAL_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
+        run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add devops-dashboard/deployment.yaml
           git commit -m "Update deployment image to $IMAGE_NAME:$COMMIT_SHA" || echo "No changes to commit"
-          git push
+          git push https://$GH_PERSONAL_TOKEN@github.com/kishxrx/gitops-argo-k8s-workflow.git HEAD:main
