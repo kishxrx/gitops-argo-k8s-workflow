@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dashboard-deployment
-  labels:
-    app: dashboard
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -16,6 +15,6 @@ spec:
     spec:
       containers:
       - name: dashboard
-        image: nginx:latest
+        image: kishxrx/gitops-argo-k8s-workflow:latest
         ports:
-        - containerPort: 80
+        - containerPort: 5000
