@@ -54,8 +54,6 @@ jobs:
           COMMIT_SHA=${GITHUB_SHA::8}
           # Replace image with the new SHA tag
           sed -i "s|image: $IMAGE_NAME:.*|image: $IMAGE_NAME:$COMMIT_SHA|g" devops-dashboard/deployment.yaml
-          # Ensure pullPolicy is Always
-          sed -i '/image:/a\        imagePullPolicy: Always' devops-dashboard/deployment.yaml
 
       # 7. Commit & push deployment update using PAT (skip CI to prevent loop)
       - name: Commit & push deployment update
