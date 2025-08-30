@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
       - name: dashboard
-        image: kishxrx/gitops-argo-k8s-workflow:90dda9ef
+        image: kishxrx/gitops-argo-k8s-workflow:0ac73b4f
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
