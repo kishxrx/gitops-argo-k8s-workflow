@@ -6,13 +6,11 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/kishxrx/gitops-argo-k8s-workflow.git
+    repoURL: https://github.com/kishxrx/gitops-argo-k8s-workflow
     targetRevision: main
     path: devops-dashboard
   destination:
     server: https://kubernetes.default.svc
-    namespace: devops-dashboard
+    namespace: default
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    automated: {}
