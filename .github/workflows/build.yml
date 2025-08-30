@@ -1,28 +1,37 @@
 name: Build and Push Docker Image
 
+# Trigger on push to main branch
 on:
   push:
     branches:
-      - main   
+      - main
 
 jobs:
   docker-build:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout the repository
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      # 2️⃣ Log in to DockerHub
       - name: Log in to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      # 3️⃣ Build Docker image with Git SHA tag
       - name: Build Docker image
         run: |
-          docker build -t kishxrx/gitops-argo-k8s-workflow:latest .
+          IMAGE_TAG=kishxrx/gitops-argo-k8s-workflow:${{ github.sha }}
+          docker build -t $IMAGE_TAG ./devops-dashboard
+          docker tag $IMAGE_TAG kishxrx/gitops-argo-k8s-workflow:latest
 
+      # 4️⃣ Push both Git SHA and latest tags to DockerHub
       - name: Push Docker image
         run: |
+          IMAGE_TAG=kishxrx/gitops-argo-k8s-workflow:${{ github.sha }}
+          docker push $IMAGE_TAG
           docker push kishxrx/gitops-argo-k8s-workflow:latest
