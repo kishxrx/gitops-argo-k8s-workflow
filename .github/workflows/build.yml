@@ -13,6 +13,8 @@ jobs:
       # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       # 2. Set up Python cache for faster builds
       - name: Set up Python cache
