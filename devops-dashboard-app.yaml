@@ -17,7 +17,7 @@ spec:
       prune: true           
       selfHeal: true        
     retry:
-      limit: 5              # retries if sync fails
+      limit: 5              
       backoff:
         duration: 5s
         factor: 2
