@@ -118,15 +118,19 @@ Automating Image Updates in Git (Closing the Loop) | Demonstrated automation of 
 
 ## 📸 Screenshots & Demo
 
-**Screenshots**
-- Final GitHub Actions workflow ([ADD IMAGE])  
-- Successful CI/CD pipeline run ([ADD IMAGE])  
-- ArgoCD dashboard showing `Healthy & Synced` ([ADD IMAGE])  
+**Screenshots**  
+- ArgoCD dashboard
+    <img width="1366" height="768" alt="Screenshot (40)" src="https://github.com/user-attachments/assets/314c3cc4-c72f-4777-b8f9-33b9dd0b6c90" />
+
+    <img width="1366" height="768" alt="Screenshot (43)" src="https://github.com/user-attachments/assets/fb26861d-c6bc-4446-b217-46365f363e9b" />
+
+
+    
+
+    
 - Running Flask DevOps Dashboard API ([ADD IMAGE])  
 
-**Video Demo** (1–2 min)
-- Small code or manifest change → commit → push → GitHub Actions triggers → Docker build & push → manifest updated → ArgoCD auto-syncs → pod rollout verified  
-[ADD LINK TO SCREEN RECORDING]
+**Video Demo**
 ![Demo](assets/demo.gif)
 ---
 
