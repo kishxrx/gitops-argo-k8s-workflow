@@ -132,18 +132,22 @@ Automating Image Updates in Git (Closing the Loop) | Demonstrated automation of 
 
 ## 📂 Project Folder Structure
 ```
-gitops-argo-final/
+gitops-argo-k8s-workflow/
 ├─ devops-dashboard/
+│  ├─ app.py
 │  ├─ deployment.yaml
 │  ├─ service.yaml
-│  ├─ kustomization.yaml
 │  ├─ requirements.txt
-│  ├─ app.py
 │  └─ (other source files)
 ├─ .github/
 │  └─ workflows/
 │     └─ build.yml
-└─ README.md
+├─ devops-dashboard-namespace.yaml
+├─ devops-dashboard-app.yaml
+├─ .gitignore
+├─ README.md
+└─ bfg.jar
+
 ```
 > Folder structure included to show recruiters the **project organization** and professionalism.
 
