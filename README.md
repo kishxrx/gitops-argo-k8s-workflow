@@ -1,51 +1,195 @@
-# ArgoCD Example Apps
+# ⚡ DevOps Dashboard & Ultimate GitOps Pipeline 🚀
 
-This repository contains example applications for demoing ArgoCD functionality. Feel free
-to register this repository to your ArgoCD instance, or fork this repo and push your own commits
-to explore ArgoCD and GitOps!
+[![Python](https://img.shields.io/badge/Python-3.9+-blue)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker)](https://www.docker.com/)
+[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI/CD-purple?logo=githubactions)](https://github.com/kingg123/gitops-argo-final/actions)
+[![ArgoCD Sync](https://img.shields.io/badge/ArgoCD-Healthy-brightgreen)](https://argo-cd.readthedocs.io/)
 
-| Status                                                                    | Application                                        | Description                                                                                                              |
-| ------------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| [![App Status][badge_sync_example_apps]][app_sync_example_apps]           | [apps](apps/)                                      | An app composed of other apps synchronized in [cd.apps.argoproj.io][app_sync_example_apps]                               |
-| [![App Status][badge_blue_green]][app_blue_green]                         | [blue-green](blue-green/)                          | Demonstrates how to implement blue-green deployment using [Argo Rollouts](https://github.com/argoproj/argo-rollouts)     |
-| [![App Status][badge_guestbook]][app_guestbook]                           | [guestbook](guestbook/)                            | A hello word guestbook app as plain YAML                                                                                 |
-| [![App Status][badge_helm_dependency]][app_helm_dependency]               | [helm-dependency](helm-dependency/)                | Demonstrates how to customize an OTS (off-the-shelf) helm chart from an upstream repo                                    |
-| [![App Status][badge_helm_guestbook]][app_helm_guestbook]                 | [helm-guestbook](helm-guestbook/)                  | The guestbook app as a Helm chart                                                                                        |
-| [![App Status][badge_helm_hooks]][app_helm_hooks]                         | [helm-hooks](helm-hooks/)                          | An application with native Helm hooks                                                                                    |
-| [![App Status][badge_jsonnet_guestbook]][app_jsonnet_guestbook]           | [jsonnet-guestbook](jsonnet-guestbook/)            | The guestbook app as a raw jsonnet                                                                                       |
-| [![App Status][badge_jsonnet_guestbook_tla]][app_jsonnet_guestbook_tla]   | [jsonnet-guestbook-tla](jsonnet-guestbook-tla/)    | The guestbook app as a raw jsonnet with support for top level arguments                                                  |
-| [![App Status][badge_kustomize_guestbook]][app_kustomize_guestbook]       | [kustomize-guestbook](kustomize-guestbook/)        | The guestbook app as a Kustomize app                                                                                     |
-| [![App Status][badge_plugin_kasane]][app_plugin_kasane]                   | [plugins/kasane](plugins/kasane)                   | Apps which demonstrate config management plugins usage with [kasane](plugins/kasane/README.md)                           |
-| [![App Status][badge_plugin_kustomized_helm]][app_plugin_kustomized_helm] | [plugins/kustomized-helm](plugins/kustomized-helm) | Apps which demonstrate config management plugins usage with a [kustomized helm chart](plugins/kustomized-helm/README.md) |
-| [![App Status][badge_pre_post_sync]][app_pre_post_sync]                   | [pre-post-sync](pre-post-sync/)                    | Demonstrates Argo CD PreSync and PostSync hooks                                                                          |
-| [![App Status][badge_sock_shop]][app_sock_shop]                           | [sock-shop](sock-shop/)                            | A microservices demo app (https://microservices-demo.github.io)                                                          |
-| [![App Status][badge_sync_waves]][app_sync_waves]                         | [sync-waves](sync-waves/)                          | Demonstrates Argo CD sync waves with hooks                                                                               |
+A **Python Flask-based dashboard application** deployed using **Docker, Kubernetes, and ArgoCD**, demonstrating a **full GitOps CI/CD pipeline** powered by **GitHub Actions**.  
 
-[app_sync_example_apps]: https://cd.apps.argoproj.io/applications/sync-example-apps
-[badge_sync_example_apps]: https://cd.apps.argoproj.io/api/badge?revision=true&name=sync-example-apps
-[app_blue_green]: https://cd.apps.argoproj.io/applications/example.blue-green
-[badge_blue_green]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.blue-green
-[app_guestbook]: https://cd.apps.argoproj.io/applications/example.guestbook
-[badge_guestbook]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.guestbook
-[app_helm_dependency]: https://cd.apps.argoproj.io/applications/example.helm-dependency
-[badge_helm_dependency]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.helm-dependency
-[app_helm_guestbook]: https://cd.apps.argoproj.io/applications/example.helm-guestbook
-[badge_helm_guestbook]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.helm-guestbook
-[app_helm_hooks]: https://cd.apps.argoproj.io/applications/example.helm-hooks
-[badge_helm_hooks]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.helm-hooks
-[app_jsonnet_guestbook]: https://cd.apps.argoproj.io/applications/example.jsonnet-guestbook
-[badge_jsonnet_guestbook]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.jsonnet-guestbook
-[app_jsonnet_guestbook_tla]: https://cd.apps.argoproj.io/applications/example.jsonnet-guestbook-tla
-[badge_jsonnet_guestbook_tla]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.jsonnet-guestbook-tla
-[app_kustomize_guestbook]: https://cd.apps.argoproj.io/applications/example.kustomize-guestbook
-[badge_kustomize_guestbook]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.kustomize-guestbook
-[app_plugin_kasane]: https://cd.apps.argoproj.io/applications/example.plugin-kasane
-[badge_plugin_kasane]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.plugin-kasane
-[app_plugin_kustomized_helm]: https://cd.apps.argoproj.io/applications/example.plugin-kustomized-helm
-[badge_plugin_kustomized_helm]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.plugin-kustomized-helm
-[app_pre_post_sync]: https://cd.apps.argoproj.io/applications/example.pre-post-sync
-[badge_pre_post_sync]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.pre-post-sync
-[app_sock_shop]: https://cd.apps.argoproj.io/applications/example.sock-shop
-[badge_sock_shop]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.sock-shop
-[app_sync_waves]: https://cd.apps.argoproj.io/applications/example.sync-waves
-[badge_sync_waves]: https://cd.apps.argoproj.io/api/badge?revision=true&name=example.sync-waves
+This project demonstrates **end-to-end automation**: code commit → Docker image build → push to Docker Hub → Kubernetes manifest update → ArgoCD auto-sync → live cluster deployment.
+
+---
+
+## 🌐 Tech Stack
+- **Python 3.9+** (Flask)  
+- **Docker & Docker Hub**  
+- **Kubernetes** (Minikube / K3s)  
+- **ArgoCD** (GitOps Continuous Deployment)  
+- **GitHub Actions** (CI/CD pipeline)
+
+---
+
+## ✨ Key Features
+- `/health` and `/metrics` endpoints for monitoring and liveness check  
+- GitOps deployment with automatic ArgoCD sync  
+- Fully automated CI/CD pipeline:
+  - Docker image build & tagging with commit SHA
+  - Docker Hub push
+  - Deployment manifest update & commit
+  - Auto-sync via ArgoCD
+- ImagePullPolicy: Always ensures pods get the latest image
+
+---
+
+## 🚀 Deployment Instructions
+
+### 1️⃣ Clone Repository
+```
+git clone https://github.com/kingg123/gitops-argo-final.git
+cd gitops-argo-final/devops-dashboard
+```
+
+### 2️⃣ Build & Run Docker Image (Optional local test)
+```
+docker build -t devops-dashboard:latest .
+docker run -p 5000:5000 devops-dashboard:latest
+```
+
+Check http://localhost:5000/health and `/metrics`.
+
+### 3️ Start Minikube (local Kubernetes cluster)
+```
+minikube start --driver=docker
+kubectl get nodes  # optional, to confirm cluster is running
+```
+### 4️⃣ Deploy to Kubernetes via ArgoCD
+- Ensure ArgoCD is installed:
+```
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+- Access ArgoCD UI (working Codespaces method):
+```
+kubectl proxy --address=0.0.0.0 --port=8001 --accept-hosts='.*'
+```
+
+Open in browser (replace `<your-codespace-id>` with your Codespaces ID):
+```
+https://<your-codespace-id>-8001.app.github.dev/api/v1/namespaces/argocd/services/https:argocd-server:https/proxy/
+```
+
+- Create namespace & ArgoCD app:
+```
+kubectl apply -f devops-dashboard-namespace.yaml
+kubectl apply -f devops-dashboard-app.yaml
+```
+
+Click **SYNC** in ArgoCD UI to deploy.
+
+---
+
+## 🛠 GitOps & CI/CD Workflow
+1. Developer pushes to GitHub main branch  
+2. GitHub Actions:
+   - Builds Docker image & tags with commit SHA  
+   - Pushes image to Docker Hub  
+   - Updates deployment manifest (`deployment.yaml`) with new SHA  
+   - Commits manifest using `[skip ci]` to prevent workflow loop  
+3. ArgoCD detects manifest change → auto-sync → app updates in Kubernetes cluster  
+
+> Fully demonstrates **push-to-deploy automation**, end-to-end GitOps, and observability via `/health` & `/metrics`.
+
+---
+
+## 🏆 Major Challenges & Solutions
+
+Problem | Solution
+--- | ---
+Codespaces networking blocked ArgoCD UI & ephemeral Minikube pods | Used `kubectl proxy` + startup scripts to stabilize cluster
+Forked repo had cluttered commit history | Rewrote Git history with `git filter-repo` + `author-map.txt` for single-author timeline
+Kubernetes deployment issues | Set `imagePullPolicy: Always`, ensured proper namespace management, validated pods via `kubectl get pods -n devops-dashboard -o wide`
+Managing Different Environments (Dev/Staging/Prod) | Refactored Kubernetes manifests using **Kustomize overlays**. Base configurations hold common settings; separate dev/prod overlays define only the differences, making environment management clean and DRY.
+Preventing Vulnerable Images from Being Deployed | Integrated **Trivy** vulnerability scanning into GitHub Actions workflow. Pipeline fails if high/critical vulnerabilities are found, preventing insecure images from deployment.
+Automating Image Updates in Git (Closing the Loop) | Demonstrated automation of deployment.yaml updates with **ArgoCD Image Updater** or GitHub Actions committing updated Docker SHA, ensuring ArgoCD always deploys the latest image without manual intervention.
+
+> Demonstrates **advanced troubleshooting, Git mastery, cloud-native DevOps skills, security best practices, scalable environment management, and fully automated GitOps pipelines**.
+
+---
+
+## 💡 Enhancements Implemented
+- Added `/health` and `/metrics` endpoints  
+- Fully automated GitOps pipeline: commit → build → push → manifest update → ArgoCD sync  
+- Repo cleanup: removed large binaries, structured `.gitignore`  
+- Stable Codespaces & Minikube workflow with proxy workaround  
+
+---
+
+## 📸 Screenshots & Demo
+
+**Screenshots**
+- Final GitHub Actions workflow ([ADD IMAGE])  
+- Successful CI/CD pipeline run ([ADD IMAGE])  
+- ArgoCD dashboard showing `Healthy & Synced` ([ADD IMAGE])  
+- Running Flask DevOps Dashboard API ([ADD IMAGE])  
+
+**Video Demo** (1–2 min)
+- Small code or manifest change → commit → push → GitHub Actions triggers → Docker build & push → manifest updated → ArgoCD auto-syncs → pod rollout verified  
+[ADD LINK TO SCREEN RECORDING]
+
+---
+
+## 📂 Project Folder Structure
+```
+gitops-argo-final/
+├─ devops-dashboard/
+│  ├─ deployment.yaml
+│  ├─ service.yaml
+│  ├─ kustomization.yaml
+│  ├─ requirements.txt
+│  ├─ app.py
+│  └─ (other source files)
+├─ .github/
+│  └─ workflows/
+│     └─ build.yml
+└─ README.md
+```
+> Folder structure included to show recruiters the **project organization** and professionalism.
+
+---
+
+## 📝 Resume / Portfolio One-liner
+Implemented **end-to-end GitOps pipeline** with ArgoCD, Kubernetes, Docker, and automated CI/CD using GitHub Actions, demonstrating full automation from code commit to deployment in a constrained cloud environment.
+
+---
+
+## ✅ Verification Commands
+### Check ArgoCD pods
+```
+kubectl get pods -n argocd
+```
+
+### Check ArgoCD Applications
+```
+kubectl get applications.argoproj.io -n argocd
+kubectl describe application devops-dashboard -n argocd
+```
+
+### Check deployed pods
+```
+kubectl get pods -n devops-dashboard -o wide
+```
+
+### Check services & endpoints
+```
+kubectl get svc -n devops-dashboard
+kubectl get endpoints -n devops-dashboard
+```
+
+### Check deployment image
+```
+grep -n "image:" devops-dashboard/deployment.yaml
+```
+
+### Pull Docker image locally
+```
+docker pull <your-dockerhub-user>/gitops-argo-k8s-workflow:<commit-sha>
+docker inspect --format='{{index .RepoDigests 0}}' <your-dockerhub-user>/gitops-argo-k8s-workflow:<commit-sha>
+```
+
+---
+
+🎯 **Project Overview**
+> This project implements a comprehensive, end-to-end GitOps pipeline, automating the full lifecycle of a cloud-native application from code commit to live deployment on Kubernetes.
+> Leveraging a modern tech stack including ArgoCD, GitHub Actions, Docker, and Kustomize, it showcases a real-world approach to CI/CD. The project highlights advanced skills in automated security scanning, resilient troubleshooting within a constrained cloud environment, and Git history management, demonstrating a deep understanding of production-ready DevOps principles.
