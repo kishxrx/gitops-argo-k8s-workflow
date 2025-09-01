@@ -127,7 +127,7 @@ Automating Image Updates in Git (Closing the Loop) | Demonstrated automation of 
 **Video Demo** (1–2 min)
 - Small code or manifest change → commit → push → GitHub Actions triggers → Docker build & push → manifest updated → ArgoCD auto-syncs → pod rollout verified  
 [ADD LINK TO SCREEN RECORDING]
-![Demo](assets/demo-optimized.gif)
+![Demo](assets/demo.gif)
 ---
 
 ## 📂 Project Folder Structure
