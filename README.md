@@ -149,7 +149,6 @@ gitops-argo-k8s-workflow/
 └─ bfg.jar
 
 ```
-> Folder structure included to show recruiters the **project organization** and professionalism.
 
 ---
 
