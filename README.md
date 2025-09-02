@@ -36,8 +36,8 @@ This project demonstrates **end-to-end automation**: code commit → Docker imag
 
 ### 1️⃣ Clone Repository
 ```
-git clone https://github.com/kingg123/gitops-argo-final.git
-cd gitops-argo-final/devops-dashboard
+git clone https://github.com/kishxrx/gitops-argo-k8s-workflow.git
+cd gitops-argo-k8s-workflow/devops-dashboard
 ```
 
 ### 2️⃣ Build & Run Docker Image (Optional local test)
@@ -67,7 +67,7 @@ kubectl proxy --address=0.0.0.0 --port=8001 --accept-hosts='.*'
 
 Open in browser (replace `<your-codespace-id>` with your Codespaces ID):
 ```
-https://<your-codespace-id>-8001.app.github.dev/api/v1/namespaces/argocd/services/https:argocd-server:https/proxy/
+https://<my-codespace-id>-8001.app.github.dev/api/v1/namespaces/argocd/services/https:argocd-server:https/proxy/
 ```
 
 - Create namespace & ArgoCD app:
@@ -128,7 +128,6 @@ Automating Image Updates in Git (Closing the Loop) | Demonstrated automation of 
     
 
     
-- Running Flask DevOps Dashboard API ([ADD IMAGE])  
 
 **Video Demo**
 ![Demo](assets/demo.gif)
@@ -191,8 +190,8 @@ grep -n "image:" devops-dashboard/deployment.yaml
 
 ### Pull Docker image locally
 ```
-docker pull <your-dockerhub-user>/gitops-argo-k8s-workflow:<commit-sha>
-docker inspect --format='{{index .RepoDigests 0}}' <your-dockerhub-user>/gitops-argo-k8s-workflow:<commit-sha>
+docker pull <my-dockerhub-username>/gitops-argo-k8s-workflow:<commit-sha>
+docker inspect --format='{{index .RepoDigests 0}}' <my-dockerhub-username>/gitops-argo-k8s-workflow:<commit-sha>
 ```
 
 ---
